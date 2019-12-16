@@ -1,7 +1,7 @@
 {
-  "name": "basic-redux",
-  "version": "0.0.8",
-  "description": "'A basic demo of Redux usage including a simple API call.'",
+  "name": "react-context-reducer",
+  "version": "0.0.1",
+  "description": "'A basic demo of React state management with useContext + useReducer usage including a simple API call.'",
   "main": "build/index.html",
   "scripts": {
     "test": "jest --verbose",
