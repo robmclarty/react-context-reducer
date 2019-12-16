@@ -1,0 +1,54 @@
+{
+  "name": "basic-redux",
+  "version": "0.0.8",
+  "description": "'A basic demo of Redux usage including a simple API call.'",
+  "main": "build/index.html",
+  "scripts": {
+    "test": "jest --verbose",
+    "build:js": "npx soko build:assets ./assets",
+    "build:assets": "npx soko build:js --jsIn ./src/index.js --jsOut ./build/app.js",
+    "build": "npm run build:js && npm run build:assets"
+  },
+  "jest": {
+    "testRegex": "(/tests/.*.(test|spec))\\.js?$",
+    "setupFilesAfterEnv": [
+      "<rootDir>config/enzyme_setup.js"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/robmclarty/basic-redux.git"
+  },
+  "keywords": [
+    "react",
+    "context",
+    "reducer",
+    "http",
+    "async"
+  ],
+  "author": "Rob McLarty <r@robmclarty.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/robmclarty/basic-redux/issues"
+  },
+  "homepage": "https://github.com/robmclarty/basic-redux#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "babel-jest": "^24.9.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "fetch-mock": "^7.7.3",
+    "jest": "^24.9.0",
+    "react-test-renderer": "^16.11.0",
+    "soko": "^0.5.3"
+  }
+}
