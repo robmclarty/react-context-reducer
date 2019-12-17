@@ -4,6 +4,17 @@ Create application using data from https://api.exchangeratesapi.io/latest
 
 This repo is a refactor of [Basic Redux](https://github.com/robmclarty/basic-redux) implementing `useContext()` & `useReducer()` in place of Redux.
 
+I've wrapped `useContext()` and `useReducer()` in a central module `./store.js`
+which returns an array similar to other React hooks like `[state, dispatch]`.
+
+Within that module, I've also included a simple thunk which attaches the `dispatch` function from `useReducer()`, a custom function called `apiRequest()`, and the `state` object. I did this so I can make composite
+action-creators which need to dispatch other action creators themselves, perhaps using values stored in the state. This also gives me a common location to attach a function for making http requests. This is useful because I can wrap
+custom logic for interacting with a theoretical API server like authz token/header management, data parsing, etc.
+
+This is a very basic type of middleware. If more sophisticated logic is required
+it could also be appended to the context here (for example, if you wanted to add
+things similar to Redux's `applyMiddleware()` function).
+
 ## Install
 
 - `npm install`
@@ -31,9 +42,8 @@ a larger, more sophisticated and complex, structure would be warranted.
   /constants - config/global values
   /helpers - utility/helper modules
   /middleware - in-between action=>reducer functions
-  /store - context store
+  store.js - context store
   index.js - main React application
-/tests - test scripts
 /build - target for automated build processes
 ```
 
