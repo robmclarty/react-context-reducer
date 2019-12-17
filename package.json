@@ -1,6 +1,6 @@
 {
   "name": "react-context-reducer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "'A basic demo of React state management with useContext + useReducer usage including a simple API call.'",
   "main": "build/index.html",
   "scripts": {
