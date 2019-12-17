@@ -1,4 +1,3 @@
-import React, { createContext, useContext, useReducer } from 'react'
 import {
   FETCH_RATES_PENDING,
   FETCH_RATES_SUCCESS,
@@ -7,7 +6,6 @@ import {
 } from '../constants/action_types'
 import { mapRatesToState } from '../helpers/rate_helper'
 
-// TODO: combine multiple, separate, reducers here rather than having one single reducer
 const defaultState = {
   isLoading: false,
   isVisible: false,
@@ -15,8 +13,6 @@ const defaultState = {
   rates: {},
   message: ''
 }
-
-const StoreContext = createContext(defaultState)
 
 const reducer = (state, action) => {
   switch(action.type) {
@@ -51,19 +47,7 @@ const reducer = (state, action) => {
   }
 }
 
-const StoreProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, defaultState)
-
-  return (
-    <StoreContext.Provider value={[state, dispatch]}>
-      {children}
-    </StoreContext.Provider>
-  )
-}
-
-const useStore = () => useContext(StoreContext)
-
 export {
-  useStore as default,
-  StoreProvider
+  defaultState,
+  reducer
 }

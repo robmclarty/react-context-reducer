@@ -1,17 +1,13 @@
 import React from 'react'
 import Notification from '../components/notification'
-import { RESET_NOTIFICATIONS } from '../constants/action_types'
+//import { RESET_NOTIFICATIONS } from '../constants/action_types'
+import { resetNotifications } from '../actions'
 import useStore from '../store'
 
 const NotificationContainer = () => {
-  const [state, dispatch] = useStore()
-  const { isVisible, status, message } = state
+  const [{ isVisible, status, message }, dispatch] = useStore()
 
-  const onReset = () => {
-    dispatch({
-      type: RESET_NOTIFICATIONS
-    })
-  }
+  const onReset = () => dispatch(resetNotifications())
 
   return (
     <Notification

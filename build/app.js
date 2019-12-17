@@ -34168,6 +34168,92 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.fetchRates = exports.resetNotifications = void 0;
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _action_types = require("../constants/action_types");
+
+var _store = _interopRequireDefault(require("../store"));
+
+var resetNotifications = function resetNotifications() {
+  return {
+    type: _action_types.RESET_NOTIFICATIONS
+  };
+}; // Main action creator which triggers a chain-reaction of subsequent actions
+// depending on the result of the async http request operation.
+// This function returns another function which is called by the thunk created
+// in the store. That function executess the returned function by passing in t
+// the values of `dispatch`, `apiRequest`, and `state`. In this particular case
+// `state` is not being used, so it is simply omitted for convenience.
+
+
+exports.resetNotifications = resetNotifications;
+
+var fetchRates = function fetchRates(url) {
+  return function _callee(dispatch, apiRequest) {
+    var data;
+    return _regenerator.default.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            dispatch(fetchRatesPending());
+            _context.prev = 1;
+            _context.next = 4;
+            return _regenerator.default.awrap(apiRequest({
+              url: url
+            }));
+
+          case 4:
+            data = _context.sent;
+            dispatch(fetchRatesSuccess(data.rates));
+            _context.next = 11;
+            break;
+
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](1);
+            dispatch(fetchRatesFail(_context.t0));
+
+          case 11:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, null, null, [[1, 8]]);
+  };
+};
+
+exports.fetchRates = fetchRates;
+
+var fetchRatesPending = function fetchRatesPending() {
+  return {
+    type: _action_types.FETCH_RATES_PENDING
+  };
+};
+
+var fetchRatesSuccess = function fetchRatesSuccess(rates) {
+  return {
+    type: _action_types.FETCH_RATES_SUCCESS,
+    rates: rates
+  };
+};
+
+var fetchRatesFail = function fetchRatesFail(error) {
+  return {
+    type: _action_types.FETCH_RATES_FAIL,
+    error: error
+  };
+};
+
+},{"../constants/action_types":39,"../store":48,"@babel/runtime/helpers/interopRequireDefault":3,"@babel/runtime/regenerator":10}],35:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
@@ -34192,7 +34278,7 @@ Button.propTypes = {
 var _default = Button;
 exports.default = _default;
 
-},{"@babel/runtime/helpers/interopRequireDefault":3,"prop-types":17,"react":27}],35:[function(require,module,exports){
+},{"@babel/runtime/helpers/interopRequireDefault":3,"prop-types":17,"react":27}],36:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -34233,7 +34319,7 @@ Notification.propTypes = {
 var _default = Notification;
 exports.default = _default;
 
-},{"../constants/status_types":40,"@babel/runtime/helpers/interopRequireDefault":3,"prop-types":17,"react":27}],36:[function(require,module,exports){
+},{"../constants/status_types":41,"@babel/runtime/helpers/interopRequireDefault":3,"prop-types":17,"react":27}],37:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -34263,7 +34349,7 @@ RateTable.propTypes = {
 var _default = RateTable;
 exports.default = _default;
 
-},{"@babel/runtime/helpers/interopRequireDefault":3,"prop-types":17,"react":27}],37:[function(require,module,exports){
+},{"@babel/runtime/helpers/interopRequireDefault":3,"prop-types":17,"react":27}],38:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -34291,7 +34377,7 @@ Spinner.propTypes = {
 var _default = Spinner;
 exports.default = _default;
 
-},{"@babel/runtime/helpers/interopRequireDefault":3,"prop-types":17,"react":27}],38:[function(require,module,exports){
+},{"@babel/runtime/helpers/interopRequireDefault":3,"prop-types":17,"react":27}],39:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34309,7 +34395,7 @@ exports.FETCH_RATES_FAIL = FETCH_RATES_FAIL;
 var RESET_NOTIFICATIONS = 'RESET_NOTIFICATIONS';
 exports.RESET_NOTIFICATIONS = RESET_NOTIFICATIONS;
 
-},{}],39:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34319,7 +34405,7 @@ exports.RATES_URL = void 0;
 var RATES_URL = 'https://api.exchangeratesapi.io/latest';
 exports.RATES_URL = RATES_URL;
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34335,7 +34421,7 @@ exports.STATUS_INFO = STATUS_INFO;
 var STATUSES = [STATUS_SUCCESS, STATUS_ERROR, STATUS_INFO];
 exports.STATUSES = STATUSES;
 
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -34345,15 +34431,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
-
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _react = _interopRequireDefault(require("react"));
 
 var _endpoints = require("../constants/endpoints");
 
-var _action_types = require("../constants/action_types");
+var _actions = require("../actions");
 
 var _button = _interopRequireDefault(require("../components/button"));
 
@@ -34365,71 +34449,19 @@ var _notification_container = _interopRequireDefault(require("./notification_con
 
 var _store = _interopRequireDefault(require("../store"));
 
-var _nodeFetch = _interopRequireDefault(require("node-fetch"));
-
-//import { fetchRates } from '../actions'
 var AppContainer = function AppContainer() {
   var _useStore = (0, _store.default)(),
       _useStore2 = (0, _slicedToArray2.default)(_useStore, 2),
-      state = _useStore2[0],
+      _useStore2$ = _useStore2[0],
+      rates = _useStore2$.rates,
+      isLoading = _useStore2$.isLoading,
       dispatch = _useStore2[1];
 
-  var rates = state.rates,
-      isLoading = state.isLoading;
-  console.log({
-    state: state
-  });
-
   var onButtonPress = function onButtonPress() {
-    var res, jsonData;
-    return _regenerator.default.async(function onButtonPress$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            dispatch({
-              type: _action_types.FETCH_RATES_PENDING
-            });
-            _context.prev = 1;
-            _context.next = 4;
-            return _regenerator.default.awrap((0, _nodeFetch.default)(_endpoints.RATES_URL, {
-              method: 'GET',
-              headers: {
-                'Accept': 'application/json'
-              }
-            }));
-
-          case 4:
-            res = _context.sent;
-            _context.next = 7;
-            return _regenerator.default.awrap(res.json());
-
-          case 7:
-            jsonData = _context.sent;
-            dispatch({
-              type: _action_types.FETCH_RATES_SUCCESS,
-              rates: jsonData.rates //{"CAD":1.4621,"HKD":8.6856,"ISK":136.8,"PHP":56.421,"DKK":7.4731,"HUF":329.01,"CZK":25.483,"AUD":1.6177,"RON":4.7791,"SEK":10.4213,"IDR":15609.97,"INR":79.1063,"BRL":4.5491,"RUB":69.8317,"HRK":7.4401,"JPY":121.97,"THB":33.689,"CHF":1.0953,"SGD":1.5096,"PLN":4.2657,"BGN":1.9558,"TRY":6.519,"CNY":7.8025,"NOK":10.028,"NZD":1.6859,"ZAR":16.1305,"USD":1.1146,"MXN":21.2022,"ILS":3.8922,"GBP":0.83415,"KRW":1304.67,"MYR":4.6167}
-
-            });
-            _context.next = 14;
-            break;
-
-          case 11:
-            _context.prev = 11;
-            _context.t0 = _context["catch"](1);
-            dispatch({
-              type: _action_types.FETCH_RATES_FAIL,
-              error: _context.t0
-            });
-
-          case 14:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, null, null, [[1, 11]]);
+    return dispatch((0, _actions.fetchRates)(_endpoints.RATES_URL));
   };
 
-  return _react.default.createElement("div", null, _react.default.createElement("header", null, _react.default.createElement(_notification_container.default, null), _react.default.createElement(_spinner.default, {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("header", null, _react.default.createElement(_notification_container.default, null), _react.default.createElement(_spinner.default, {
     isLoading: isLoading
   })), _react.default.createElement("br", null), _react.default.createElement("main", null, _react.default.createElement("h2", null, "Currency Rates"), _react.default.createElement(_button.default, {
     label: "Fetch Rates",
@@ -34442,7 +34474,7 @@ var AppContainer = function AppContainer() {
 var _default = AppContainer;
 exports.default = _default;
 
-},{"../components/button":34,"../components/rate_table":36,"../components/spinner":37,"../constants/action_types":38,"../constants/endpoints":39,"../store":45,"./notification_container":42,"@babel/runtime/helpers/interopRequireDefault":3,"@babel/runtime/helpers/slicedToArray":7,"@babel/runtime/regenerator":10,"node-fetch":11,"react":27}],42:[function(require,module,exports){
+},{"../actions":34,"../components/button":35,"../components/rate_table":37,"../components/spinner":38,"../constants/endpoints":40,"../store":48,"./notification_container":43,"@babel/runtime/helpers/interopRequireDefault":3,"@babel/runtime/helpers/slicedToArray":7,"react":27}],43:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -34458,26 +34490,22 @@ var _react = _interopRequireDefault(require("react"));
 
 var _notification = _interopRequireDefault(require("../components/notification"));
 
-var _action_types = require("../constants/action_types");
+var _actions = require("../actions");
 
 var _store = _interopRequireDefault(require("../store"));
 
-//import { connect } from 'react-redux'
-//import { resetNotifications } from '../actions'
+//import { RESET_NOTIFICATIONS } from '../constants/action_types'
 var NotificationContainer = function NotificationContainer() {
   var _useStore = (0, _store.default)(),
       _useStore2 = (0, _slicedToArray2.default)(_useStore, 2),
-      state = _useStore2[0],
+      _useStore2$ = _useStore2[0],
+      isVisible = _useStore2$.isVisible,
+      status = _useStore2$.status,
+      message = _useStore2$.message,
       dispatch = _useStore2[1];
 
-  var isVisible = state.isVisible,
-      status = state.status,
-      message = state.message;
-
   var onReset = function onReset() {
-    dispatch({
-      type: _action_types.RESET_NOTIFICATIONS
-    });
+    return dispatch((0, _actions.resetNotifications)());
   };
 
   return _react.default.createElement(_notification.default, {
@@ -34491,7 +34519,7 @@ var NotificationContainer = function NotificationContainer() {
 var _default = NotificationContainer;
 exports.default = _default;
 
-},{"../components/notification":35,"../constants/action_types":38,"../store":45,"@babel/runtime/helpers/interopRequireDefault":3,"@babel/runtime/helpers/slicedToArray":7,"react":27}],43:[function(require,module,exports){
+},{"../actions":34,"../components/notification":36,"../store":48,"@babel/runtime/helpers/interopRequireDefault":3,"@babel/runtime/helpers/slicedToArray":7,"react":27}],44:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -34507,7 +34535,6 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-// Take updated rates and combine them with an existing state.
 var mapRatesToState = function mapRatesToState(state, rates) {
   return Object.keys(rates).reduce(function (newState, key) {
     return _objectSpread({}, newState, (0, _defineProperty2.default)({}, key, rates[key]));
@@ -34516,7 +34543,7 @@ var mapRatesToState = function mapRatesToState(state, rates) {
 
 exports.mapRatesToState = mapRatesToState;
 
-},{"@babel/runtime/helpers/defineProperty":2,"@babel/runtime/helpers/interopRequireDefault":3}],44:[function(require,module,exports){
+},{"@babel/runtime/helpers/defineProperty":2,"@babel/runtime/helpers/interopRequireDefault":3}],45:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -34544,23 +34571,74 @@ var _app_container = _interopRequireDefault(require("./containers/app_container"
 (0, _reactDom.render)(_react.default.createElement(_store.StoreProvider, null, _react.default.createElement(_app_container.default, null)), document.getElementById('app-root') // defined in `/assets/index.html`
 );
 
-},{"./containers/app_container":41,"./store":45,"@babel/runtime/helpers/interopRequireDefault":3,"react":27,"react-dom":21}],45:[function(require,module,exports){
+},{"./containers/app_container":42,"./store":48,"@babel/runtime/helpers/interopRequireDefault":3,"react":27,"react-dom":21}],46:[function(require,module,exports){
 "use strict";
-
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.StoreProvider = exports.default = void 0;
+exports.default = void 0;
 
-var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _nodeFetch = _interopRequireDefault(require("node-fetch"));
+
+// TODO: Add common authz logic here
+var request = function request(_ref) {
+  var _ref$url, url, _ref$method, method, options, res, jsonData;
+
+  return _regenerator.default.async(function request$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _ref$url = _ref.url, url = _ref$url === void 0 ? '' : _ref$url, _ref$method = _ref.method, method = _ref$method === void 0 ? 'GET' : _ref$method;
+          options = {
+            method: method,
+            headers: {
+              'Accept': 'application/json'
+            }
+          };
+          _context.prev = 2;
+          _context.next = 5;
+          return _regenerator.default.awrap((0, _nodeFetch.default)(url, options));
+
+        case 5:
+          res = _context.sent;
+          _context.next = 8;
+          return _regenerator.default.awrap(res.json());
+
+        case 8:
+          jsonData = _context.sent;
+          return _context.abrupt("return", jsonData);
+
+        case 12:
+          _context.prev = 12;
+          _context.t0 = _context["catch"](2);
+          throw _context.t0.message;
+
+        case 15:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, null, null, [[2, 12]]);
+};
+
+exports.default = request;
+
+},{"@babel/runtime/helpers/interopRequireDefault":3,"@babel/runtime/regenerator":10,"node-fetch":11}],47:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.reducer = exports.defaultState = void 0;
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
-var _react = _interopRequireWildcard(require("react"));
 
 var _action_types = require("../constants/action_types");
 
@@ -34577,7 +34655,7 @@ var defaultState = {
   rates: {},
   message: ''
 };
-var StoreContext = (0, _react.createContext)(defaultState);
+exports.defaultState = defaultState;
 
 var reducer = function reducer(state, action) {
   switch (action.type) {
@@ -34612,16 +34690,58 @@ var reducer = function reducer(state, action) {
   }
 };
 
+exports.reducer = reducer;
+
+},{"../constants/action_types":39,"../helpers/rate_helper":44,"@babel/runtime/helpers/defineProperty":2,"@babel/runtime/helpers/interopRequireDefault":3}],48:[function(require,module,exports){
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.StoreProvider = exports.default = void 0;
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reducers = require("./reducers");
+
+var _api_middleware = _interopRequireDefault(require("./middlewares/api_middleware"));
+
+var StoreContext = (0, _react.createContext)(_reducers.defaultState); // If type of `action` is a function, attach `dispatch`, `apiRequest`,
+// and `state` to its function call execution.
+
+var thunk = function thunk(state, dispatch) {
+  return function (action) {
+    return typeof action === 'function' ? action(dispatch, _api_middleware.default, state) : dispatch(action);
+  };
+};
+
 var StoreProvider = function StoreProvider(_ref) {
   var children = _ref.children;
 
-  var _useReducer = (0, _react.useReducer)(reducer, defaultState),
+  var _useReducer = (0, _react.useReducer)(_reducers.reducer, _reducers.defaultState),
       _useReducer2 = (0, _slicedToArray2.default)(_useReducer, 2),
       state = _useReducer2[0],
-      dispatch = _useReducer2[1];
+      dispatch = _useReducer2[1]; // The value of the context is an array of 2 elements (mimicking the React
+  // hook api):
+  // 1. `state` (the current value of the global store)
+  // 2. `dispatch` (a function for passing actions to the reducer)
+  //
+  // NOTE: `dispatch` is actually being modified by the above `thunk()` function
+  // such that it is able to be used for composite action creators which require
+  // access to `dispatch`, `apiRequest` and `state` internally. These types of
+  // action creators are used to dispatch subsequent actions depending on some
+  // sort of business logic without needing to pass those arguments manually.
+  // This acts as a simple sort of middleware in lieu of Redux's `applyMiddleware()`.
+
 
   return _react.default.createElement(StoreContext.Provider, {
-    value: [state, dispatch]
+    value: [state, thunk(state, dispatch)]
   }, children);
 };
 
@@ -34633,6 +34753,6 @@ var useStore = function useStore() {
 
 exports.default = useStore;
 
-},{"../constants/action_types":38,"../helpers/rate_helper":43,"@babel/runtime/helpers/defineProperty":2,"@babel/runtime/helpers/interopRequireDefault":3,"@babel/runtime/helpers/interopRequireWildcard":4,"@babel/runtime/helpers/slicedToArray":7,"react":27}]},{},[44])
+},{"./middlewares/api_middleware":46,"./reducers":47,"@babel/runtime/helpers/interopRequireDefault":3,"@babel/runtime/helpers/interopRequireWildcard":4,"@babel/runtime/helpers/slicedToArray":7,"react":27}]},{},[45])
 
 //# sourceMappingURL=app.js.map
