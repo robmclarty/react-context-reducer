@@ -4,12 +4,17 @@ import {
   FETCH_RATES_FAIL,
   RESET_NOTIFICATIONS
 } from '../constants/action_types'
+import {
+  STATUS_SUCCESS,
+  STATUS_ERROR,
+  STATUS_INFO
+} from '../constants/status_types'
 import { mapRatesToState } from '../helpers/rate_helper'
 
 const defaultState = {
   isLoading: false,
   isVisible: false,
-  status: 'success',
+  status: '',
   rates: {},
   message: ''
 }
@@ -26,7 +31,7 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       isVisible: true,
-      status: 'success',
+      status: STATUS_SUCCESS,
       message: 'Rates fetched successfully',
       rates: mapRatesToState(state.rates, action.rates)
     }
@@ -34,12 +39,14 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
+      status: STATUS_ERROR,
       message: `Something went wrong: ${ action.error }`
     }
   case RESET_NOTIFICATIONS:
     return {
       ...state,
       isVisible: false,
+      status: '',
       message: ''
     }
   default:

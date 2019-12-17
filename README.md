@@ -68,14 +68,6 @@ Sample output from https://api.exchangeratesapi.io/latest
 ```
 
 
-## Testing
-
-`npm test`
-
-Tests are using Jest and Enzyme as the main frameworks. Babel packages have been
-installed to enable the test environment to load ES6 modules.
-
-
 ## Soko
 
 I built a utilitiy library called [Soko](https://github.com/robmclarty/soko) that
