@@ -7,9 +7,11 @@ import {
 } from '../constants/action_types'
 import { mapRatesToState } from '../helpers/rate_helper'
 
-// TODO: combine all reducers here rather than having one single reducer
+// TODO: combine multiple, separate, reducers here rather than having one single reducer
 const defaultState = {
   isLoading: false,
+  isVisible: false,
+  status: 'success',
   rates: {},
   message: ''
 }
@@ -27,16 +29,23 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
+      isVisible: true,
+      status: 'success',
+      message: 'Rates fetched successfully',
       rates: mapRatesToState(state.rates, action.rates)
     }
   case FETCH_RATES_FAIL:
     return {
       ...state,
       isLoading: false,
-      message: action.error
+      message: `Something went wrong: ${ action.error }`
     }
   case RESET_NOTIFICATIONS:
-    return initialState
+    return {
+      ...state,
+      isVisible: false,
+      message: ''
+    }
   default:
     return state
   }

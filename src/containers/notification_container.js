@@ -1,17 +1,26 @@
 import React from 'react'
-import { connect } from 'react-redux'
-
-import { resetNotifications } from '../actions'
 import Notification from '../components/notification'
+import { RESET_NOTIFICATIONS } from '../constants/action_types'
+import useStore from '../store'
 
-const mapStateToProps = state => ({
-  isVisible: state.notifications.isVisible,
-  message: state.notifications.message,
-  status: state.notifications.status
-})
+const NotificationContainer = () => {
+  const [state, dispatch] = useStore()
+  const { isVisible, status, message } = state
 
-const mapDispatchToProps = dispatch => ({
-  onReset: () => dispatch(resetNotifications())
-})
+  const onReset = () => {
+    dispatch({
+      type: RESET_NOTIFICATIONS
+    })
+  }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notification)
+  return (
+    <Notification
+      isVisible={isVisible}
+      message={message}
+      status={status}
+      onReset={onReset}
+    />
+  )
+}
+
+export default NotificationContainer
